@@ -34,7 +34,7 @@ EL método **simulate** recibe tres parámetros:
 
 - `extra` si se usa o no un empleado extra durante el horario pico.  
 
-La estrategia usada para la simulación mantiene una lista `workers` con los clientes que está atendiendo cada trabajador, una cola `queue` para mantener los clientes que han llegado pero aún no han podido ser atendidos, el tiempo de arribo del siguiente cliente `arrival` y el tiempo que demora su pedido `a_time` el cual se calculó usando una distribución normal según el tipo de alimento que este quiere (también se usó una distribución uniforme para elegir el tipo de alimento).  
+La estrategia usada para la simulación mantiene una lista `workers` con los clientes que está atendiendo cada trabajador, una cola `queue` para mantener los clientes que han llegado pero aún no han podido ser atendidos, el tiempo de arribo del siguiente cliente `arrival` y el tiempo que demora su pedido `a_time` el cual se calculó usando una distribución uniforme según el tipo de alimento que este quiere (también se usó una distribución uniforme para elegir el tipo de alimento).  
 
 La parte fundamental de la simulación consta de 3 fases, las cuales se ejecutan mientras no acabe el horario de servicio:  
 

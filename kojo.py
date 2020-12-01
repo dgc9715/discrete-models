@@ -1,8 +1,11 @@
 import random
 from math import log
 
-def exp_var(lbd):
+def exp_dist(lbd):
     return -log(1.0 - random.random()) / lbd
+
+def uniform_dist(a, b):
+    return a + (b-a) * random.random()
 
 def simulate(low_l, high_l, extra = 0):
     start = 10 * 60 # 10am
@@ -12,12 +15,12 @@ def simulate(low_l, high_l, extra = 0):
     is_high_demand = lambda x: [i[0] <= x <= i[1] for i in high_demand].count(True)
 
     prep_times = [3, 5, 8]
-    time_to_prep = lambda x: random.uniform(prep_times[x], prep_times[1+x])
+    time_to_prep = lambda x: uniform_dist(prep_times[x], prep_times[1+x])
 
     cur_t = start
     arrival, a_time = 0, 0
     def gen_client():
-        return (exp_var(high_l if is_high_demand(cur_t) else low_l), time_to_prep(random.randint(0, 1)))
+        return (exp_dist(high_l if is_high_demand(cur_t) else low_l), time_to_prep(random.randint(0, 1)))
 
     INF = 1000000000
     free_worker = (-1, INF)
@@ -62,9 +65,9 @@ def simulate(low_l, high_l, extra = 0):
 random.seed(0)
 SIMS = 10
 
-l1 = [random.uniform(0.05, 0.4) for i in range(SIMS)]
+l1 = [uniform_dist(0.05, 0.4) for i in range(SIMS)]
 l1.sort()
-l2 = [l1[i] + exp_var(12.0) for i in range(SIMS)]
+l2 = [l1[i] + exp_dist(12.0) for i in range(SIMS)]
 result = []
 for i in range(SIMS):
     result.append((l1[i], l2[i], 0, simulate(l1[i], l2[i], 0)))
